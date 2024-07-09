@@ -1,0 +1,31 @@
+configs:
+  cm:
+    create: true
+    admin.enabled: false
+    # url: "https://argocd.kms.ihkdigital.de"
+    exec.enabled: true
+    oidc.config: |
+      name: Azure
+      issuer: $oidc.azure.tenant
+      clientID: $oidc.azure.clientId
+      clientSecret: $oidc.azure.clientSecret
+      requestedIDTokenClaims:
+          groups:
+            essential: true
+      requestedScopes:
+         - openid
+         - profile
+         - email
+
+# External Redis parameters
+# Set these values if we want to use an Azure managed Redis instance
+externalRedis:
+  host: ""
+  username: ""
+  password: ""
+  port: 6379
+  # -- The name of an existing secret with Redis (must contain key `redis-password`) and Sentinel credentials.
+  # When it's set, the `externalRedis.password` parameter is ignored
+  existingSecret: ""
+  # -- External Redis Secret annotations
+  secretAnnotations: {}
